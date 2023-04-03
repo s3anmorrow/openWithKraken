@@ -13,8 +13,6 @@ export function activate({ subscriptions }: vscode.ExtensionContext) {
 	// register a command that is invoked when the status bar
 	// item is selected
 	subscriptions.push(vscode.commands.registerCommand(COMMAND_ID, () => {
-		// vscode.window.showInformationMessage(`TESTY!!!`);
-
 
 		console.log(vscode.workspace.workspaceFolders);
 
@@ -25,12 +23,8 @@ export function activate({ subscriptions }: vscode.ExtensionContext) {
 			const cp = require('child_process');
 			cp.exec(`gitkraken -p ${folder.uri.path}`, (err:any, stdout:any, stderr:any) => {
 				if (err) {
-
-					// TODO add error check for gitkraken not installed
-
-					console.log('error: ' + err);
-
-					vscode.window.showInformationMessage(`Error: ${err.message}`);
+					console.log(`ERROR: {err.message}`);
+					vscode.window.showInformationMessage(`ERROR: Do you have GitKraken installed? [${err.message}]`);
 				}
 			});
 		});
@@ -42,8 +36,10 @@ export function activate({ subscriptions }: vscode.ExtensionContext) {
 
 	// create a new status bar item that we can now manage
 	myStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
+	
 	// myStatusBarItem.color = "#FFFFFF";
-	myStatusBarItem.command = myCommandId;
+
+	myStatusBarItem.command = COMMAND_ID;
 	myStatusBarItem.tooltip = "Open project folder with GitKraken";
 	subscriptions.push(myStatusBarItem);
 
