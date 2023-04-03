@@ -2,24 +2,62 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
+// command identifier
+const COMMAND_ID:string = 'openwithkraken.open';
+let myStatusBarItem: vscode.StatusBarItem;
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "openwithkraken" is now active!');
+// --------------------------------------- private methods
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('openwithkraken.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from OpenWithKraken!');
-	});
+// --------------------------------------- boilerplate methods
+export function activate({ subscriptions }: vscode.ExtensionContext) {
+	// register a command that is invoked when the status bar
+	// item is selected
+	subscriptions.push(vscode.commands.registerCommand(COMMAND_ID, () => {
+		// vscode.window.showInformationMessage(`TESTY!!!`);
 
-	context.subscriptions.push(disposable);
+
+		console.log(vscode.workspace.workspaceFolders);
+
+
+		vscode.workspace.workspaceFolders?.forEach(folder => {
+			console.log(folder.uri.path);
+
+			const cp = require('child_process');
+			cp.exec(`gitkraken -p ${folder.uri.path}`, (err:any, stdout:any, stderr:any) => {
+				if (err) {
+
+					// TODO add error check for gitkraken not installed
+
+					console.log('error: ' + err);
+
+					vscode.window.showInformationMessage(`Error: ${err.message}`);
+				}
+			});
+		});
+
+
+		
+
+	}));
+
+	// create a new status bar item that we can now manage
+	myStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
+	// myStatusBarItem.color = "#FFFFFF";
+	myStatusBarItem.command = myCommandId;
+	myStatusBarItem.tooltip = "Open project folder with GitKraken";
+	subscriptions.push(myStatusBarItem);
+
+
+	console.log("OpenWithKraken activated!");
+
+	// // register some listener that make sure the status bar 
+	// // item always up-to-date
+	// subscriptions.push(vscode.window.onDidChangeActiveTextEditor(updateStatusBarItem));
+	// subscriptions.push(vscode.window.onDidChangeTextEditorSelection(updateStatusBarItem));
+
+	// update status bar item once at start
+	myStatusBarItem.text = `$(repo-forked) GitKraken`;
+	myStatusBarItem.show();
 }
 
 // This method is called when your extension is deactivated
