@@ -1,6 +1,6 @@
 # Open with GitKraken
 
-An extension to open the current project folder's repo in GitKraken. If a multi-root workspace is open, all folders' repos within the workspace will be opened in GitKraken.
+A VS Code extension to open the current project folder's repo in GitKraken. If a multi-root workspace is open, all folders' repos within the workspace will be opened in GitKraken.
 
 ## Features
 
