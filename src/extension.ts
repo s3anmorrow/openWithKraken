@@ -1,7 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import { exec } from 'child_process';
+import { ExecException, exec } from 'child_process';
 
 // command identifier
 const COMMAND_ID:string = 'openwithkraken.open';
@@ -17,20 +17,19 @@ export function activate({ subscriptions }: vscode.ExtensionContext) {
 
 		console.log(vscode.workspace.workspaceFolders);
 
-
-
+		// error checking for no workspace folder opened
+		if (vscode.workspace.workspaceFolders === undefined) {
+			vscode.window.showErrorMessage("ERROR: No workspace / project folder is open");
+			return;
+		}
 
 		// open gitkraken for all folders in workspace
-		vscode.workspace.workspaceFolders?.forEach(folder => {
-
-			// TODO error check for undefined meaning no workspace folder is open
-			// console.log(`${folder.uri.path}`);
-			
+		vscode.workspace.workspaceFolders?.forEach(folder => {			
 			// invoke command to open gitkraken for each folder in the workspace (works for single folder or multi-root workspace)
-			exec(`gitkraken -p ${folder.uri.path}`, (err:any, stdout:any, stderr:any) => {
+			exec(`gitkraken -p ${folder.uri.path}`, (err:ExecException|null) => {
 				if (err) {
 					console.log(`ERROR: {err.message}`);
-					vscode.window.showInformationMessage(`ERROR: Do you have GitKraken installed? [${err.message}]`);
+					vscode.window.showErrorMessage(`ERROR: Do you have GitKraken installed? [${err.message}]`);
 				}
 			});
 		});
@@ -45,9 +44,7 @@ export function activate({ subscriptions }: vscode.ExtensionContext) {
 	myStatusBarItem.tooltip = "Open project folder with GitKraken";
 	subscriptions.push(myStatusBarItem);
 
-
 	console.log("OpenWithKraken activated!");
-
 
 	// update status bar item once at start
 	myStatusBarItem.text = `$(repo-forked) GitKraken`;
