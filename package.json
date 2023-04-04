@@ -15,7 +15,7 @@
     "commands": [
       {
         "command": "openwithkraken.open",
-        "title": "Git: Open with GitKraken"
+        "title": "Open with GitKraken"
       }
     ]
   },
