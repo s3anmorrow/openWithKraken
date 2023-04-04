@@ -9,7 +9,7 @@ The extension adds the following to VS Code:
 
 > ![added status bar button](https://raw.githubusercontent.com/s3anmorrow/openWithKraken/main/images/button.png)
 
-- a new command to the Command Palette (Ctrl+Shift+P) called "Open with GitKraken" that opens the current project folder in GitKraken
+- a new command to the Command Palette (Ctrl+Shift+P) called "Open with GitKraken" that opens the current project folder
 
 > ![added command](https://raw.githubusercontent.com/s3anmorrow/openWithKraken/main/images/command.png)
 
