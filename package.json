@@ -1,7 +1,7 @@
 {
   "name": "openwithkraken",
-  "displayName": "OpenWithKraken",
-  "description": "",
+  "displayName": "Open with GitKraken",
+  "description": "Open current project folder / workspace with GitKraken",
   "version": "1.0.0",
   "publisher": "s3anmorrow",
   "engines": {
@@ -34,7 +34,7 @@
     "commands": [
       {
         "command": "openwithkraken.open",
-        "title": "Open project folder with GitKraken"
+        "title": "Open folder with GitKraken"
       }
     ]
   },
