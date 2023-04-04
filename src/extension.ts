@@ -15,8 +15,6 @@ export function activate({ subscriptions }: vscode.ExtensionContext) {
 	// register a command that is invoked when the status bar item is selected
 	subscriptions.push(vscode.commands.registerCommand(COMMAND_ID, () => {
 
-		console.log(vscode.workspace.workspaceFolders);
-
 		// error checking for no workspace folder opened
 		if (vscode.workspace.workspaceFolders === undefined) {
 			vscode.window.showErrorMessage("ERROR: No workspace / project folder is open");
@@ -37,14 +35,9 @@ export function activate({ subscriptions }: vscode.ExtensionContext) {
 
 	// create a new status bar item that we can now manage
 	myStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
-	
-	// myStatusBarItem.color = "#FFFFFF";
-
 	myStatusBarItem.command = COMMAND_ID;
 	myStatusBarItem.tooltip = "Open project folder with GitKraken";
 	subscriptions.push(myStatusBarItem);
-
-	console.log("OpenWithKraken activated!");
 
 	// update status bar item once at start
 	myStatusBarItem.text = `$(repo-forked) GitKraken`;
