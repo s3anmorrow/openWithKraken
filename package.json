@@ -2,20 +2,39 @@
   "name": "openwithkraken",
   "displayName": "OpenWithKraken",
   "description": "",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "publisher": "s3anmorrow",
   "engines": {
     "vscode": "^1.77.0"
   },
-  "categories": [
-    "Other"
-  ],
+  "repository": {
+		"type": "git",
+		"url": "https://github.com/s3anmorrow/VSCodeExt-openWithKraken.git"
+	},
+  "license": "GPL-3.0",
+	"categories": [
+		"Other"
+	],
+	"keywords": [
+		"gitkraken",
+		"git",
+		"versioning",
+		"open",
+		"kraken",
+		"openwithkraken",
+		"extension",
+		"development",
+		"UI",
+		"vscode"
+	],
+	"icon": "images/icon.png",
   "activationEvents": [ "onStartupFinished" ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "openwithkraken.open",
-        "title": "Open with GitKraken"
+        "title": "Open project folder with GitKraken"
       }
     ]
   },

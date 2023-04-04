@@ -1,3 +1,5 @@
+// publishing instructions: https://code.visualstudio.com/api/working-with-extensions/publishing-extension
+
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
@@ -7,8 +9,6 @@ import { ExecException, exec } from 'child_process';
 const COMMAND_ID:string = 'openwithkraken.open';
 
 let myStatusBarItem: vscode.StatusBarItem;
-
-// --------------------------------------- private methods
 
 // --------------------------------------- boilerplate methods
 export function activate({ subscriptions }: vscode.ExtensionContext) {
