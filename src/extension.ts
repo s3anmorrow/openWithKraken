@@ -1,3 +1,5 @@
+// publishing instructions: https://code.visualstudio.com/api/working-with-extensions/publishing-extension
+
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
@@ -7,8 +9,6 @@ import { ExecException, exec } from 'child_process';
 const COMMAND_ID:string = 'openwithkraken.open';
 
 let myStatusBarItem: vscode.StatusBarItem;
-
-// --------------------------------------- private methods
 
 // --------------------------------------- boilerplate methods
 export function activate({ subscriptions }: vscode.ExtensionContext) {
@@ -24,7 +24,9 @@ export function activate({ subscriptions }: vscode.ExtensionContext) {
 		// open gitkraken for all folders in workspace
 		vscode.workspace.workspaceFolders?.forEach(folder => {			
 			// invoke command to open gitkraken for each folder in the workspace (works for single folder or multi-root workspace)
-			exec(`gitkraken -p ${folder.uri.path}`, (err:ExecException|null) => {
+			exec(`gitkraken -p "${folder.uri.path}"`, (err:ExecException|null) => {
+
+			// exec(`gitkraken -p .`, (err:ExecException|null) => {
 				if (err) {
 					console.log(`ERROR: {err.message}`);
 					vscode.window.showErrorMessage(`ERROR: Do you have GitKraken installed? [${err.message}]`);
