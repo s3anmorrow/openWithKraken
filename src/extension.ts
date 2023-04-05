@@ -30,6 +30,9 @@ export function activate({ subscriptions }: vscode.ExtensionContext) {
 				if (err) {
 					console.log(`ERROR: {err.message}`);
 					vscode.window.showErrorMessage(`ERROR: Do you have GitKraken installed? [${err.message}]`);
+
+					// TODO add error message about making sure path is setup in environment variables in windows to:
+					// C:\Users\[username]\AppData\Local\gitkraken\bin
 				}
 			});
 		});
