@@ -24,9 +24,6 @@ export function activate({ subscriptions }: vscode.ExtensionContext) {
 		// open gitkraken for all folders in workspace
 		vscode.workspace.workspaceFolders?.forEach(folder => {			
 			// invoke command to open gitkraken for each folder in the workspace (works for single folder or multi-root workspace)
-
-			vscode.window.showInformationMessage(`${folder.uri.path}`);
-
 			exec(`gitkraken -p "${folder.uri.path}"`, (err:ExecException|null) => {
 
 			// exec(`gitkraken -p .`, (err:ExecException|null) => {
