@@ -25,14 +25,8 @@ export function activate({ subscriptions }: vscode.ExtensionContext) {
 		vscode.workspace.workspaceFolders?.forEach(folder => {			
 			// invoke command to open gitkraken for each folder in the workspace (works for single folder or multi-root workspace)
 			exec(`gitkraken -p "${folder.uri.path}"`, (err:ExecException|null) => {
-
-			// exec(`gitkraken -p .`, (err:ExecException|null) => {
 				if (err) {
-					console.log(`ERROR: {err.message}`);
-					vscode.window.showErrorMessage(`ERROR: Do you have GitKraken installed? [${err.message}]`);
-
-					// TODO add error message about making sure path is setup in environment variables in windows to:
-					// C:\Users\[username]\AppData\Local\gitkraken\bin
+					vscode.window.showErrorMessage(`ERROR: GitKraken not installed or path not setup in environment variables [${err.message}]`);
 				}
 			});
 		});

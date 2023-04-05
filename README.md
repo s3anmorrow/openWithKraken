@@ -21,4 +21,5 @@ gitkraken -p [path to project folder]
 
 The extension will display error messages if: 
 - a project / workspace is not currently opened 
-- GitKraken is not installed on the machine (gitkraken command path is not setup)
+- GitKraken is not installed on the machine
+- the path to gitkraken.exe is not setup correctly in the PATH environment variable of windows ([C:\Users\[username]\AppData\Local\gitkraken\bin]). This should have been done automatically when installing GitKraken.
