@@ -16,10 +16,10 @@ The extension adds the following to VS Code:
 Selecting either will open up your current project folder in GitKraken. It does this by executing the following shell command:
 
 ```
-gitkraken -p [path to project folder]
+gitkraken -p "[path to project folder]"
 ```
 
 The extension will display error messages if: 
 - a project / workspace is not currently opened 
 - GitKraken is not installed on the machine
-- the path to gitkraken.exe is not setup correctly in the PATH environment variable of windows ([C:\Users\[username]\AppData\Local\gitkraken\bin]). This should have been done automatically when installing GitKraken.
+- the path to gitkraken.exe is not setup correctly in the PATH environment variable of windows ([C:\Users\[windows username]\AppData\Local\gitkraken\bin]). This should have been done automatically when installing GitKraken.
