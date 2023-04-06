@@ -4,6 +4,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { ExecException, exec } from 'child_process';
+import { platform } from "node:os";
 
 // command identifier
 const COMMAND_ID:string = 'openwithkraken.open';
@@ -22,13 +23,32 @@ export function activate({ subscriptions }: vscode.ExtensionContext) {
 		}
 
 		// open gitkraken for all folders in workspace
-		vscode.workspace.workspaceFolders?.forEach(folder => {			
-			// invoke command to open gitkraken for each folder in the workspace (works for single folder or multi-root workspace)
-			exec(`gitkraken -p "${folder.uri.path}"`, (err:ExecException|null) => {
-				if (err) {
-					vscode.window.showErrorMessage(`ERROR: GitKraken not installed or path not setup in environment variables [${err.message}]`);
-				}
-			});
+		let command:string = "";
+		vscode.workspace.workspaceFolders?.forEach((folder,index) => {		
+			let path = folder.uri.path;
+			// strip out starting "/" that is added to uri.path on windows machines
+			if ((platform() === "win32") && (path.charAt(0) === "/")) {
+				path = path.substring(1);
+			}
+			// add to shell command
+			command += `gitkraken -p "${path}"`;
+
+			// console.log(index);
+			// console.log(vscode.workspace.workspaceFolders?.length);
+
+			let length:number|undefined = vscode.workspace.workspaceFolders?.length;
+			if ((length !== undefined) && (index < (length - 1))){
+				command += " && ";
+			}
+		});
+
+		// console.log(command);
+
+		// invoke command to open gitkraken for each folder in the workspace (works for single folder or multi-root workspace)
+		exec(command, (err:ExecException|null) => {
+			if (err) {
+				vscode.window.showErrorMessage(`ERROR: GitKraken not installed or path not setup in environment variables [${err.message}]`);
+			}
 		});
 	}));
 
